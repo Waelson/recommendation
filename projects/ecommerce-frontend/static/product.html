@@ -202,6 +202,7 @@
     </style>
 
     <script>
+        //Carrega as categorias
         document.addEventListener('DOMContentLoaded', function () {
             const categoriesList = document.querySelector('aside ul');
 
@@ -226,6 +227,37 @@
                     console.error('Erro ao carregar categorias:', error);
                     categoriesList.innerHTML = '<li>Erro ao carregar categorias</li>';
                 });
+        });
+
+        //Carrega os detalhes do produto
+        document.addEventListener('DOMContentLoaded', function () {
+            // Obter o valor do parâmetro "id" da query string
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get('id');
+
+            if (productId) {
+                // Fazer a requisição para a API para obter os detalhes do produto
+                fetch(`http://localhost:8181/api/products/${productId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao buscar os detalhes do produto');
+                        }
+                        return response.json();
+                    })
+                    .then(product => {
+                        // Atualizar o conteúdo da página com os detalhes do produto
+                        document.querySelector('.product-name').textContent = product.name;
+                        document.querySelector('.product-description').textContent = product.description;
+                        document.querySelector('.product-price').textContent = `R$ ${product.price}`;
+                        document.querySelector('.product-image').src = product.image;
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        document.querySelector('.product-details').innerHTML = '<p>Erro ao carregar os detalhes do produto.</p>';
+                    });
+            } else {
+                document.querySelector('.product-details').innerHTML = '<p>Produto não especificado.</p>';
+            }
         });
     </script>
 </head>
@@ -252,12 +284,12 @@
         <h2>Detalhes do Produto</h2>
         <div class="product-details">
             <div class="product-image">
-                <img src="https://via.placeholder.com/400" alt="Produto">
+                <img class="product-image" src="" alt="Imagem do Produto" style="width: 300px; height: auto;">
             </div>
             <div class="product-info">
-                <h3>Nome do Produto</h3>
-                <p>Descrição detalhada do produto. Este produto é ideal para suas necessidades e oferece qualidade e durabilidade excepcionais.</p>
-                <p class="price">R$ 499,90</p>
+                <h3 class="product-name"></h3>
+                <p class="product-description"></p>
+                <p class="product-price price">R$ 499,90</p>
                 <a href="#" class="add-to-cart">Adicionar ao Carrinho</a>
             </div>
         </div>

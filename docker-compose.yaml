@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  recommendation-api:
+    build:
+      context: ./projects/recommendation-api
+      dockerfile: Dockerfile
+    container_name: recommendation-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./projects/recommendation-api/model:/app/model
+    environment:
+      - FLASK_ENV=development
+    command: python app.py

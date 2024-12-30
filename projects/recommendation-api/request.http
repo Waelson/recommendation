@@ -1,0 +1,1 @@
+GET http://localhost:8000/recommend?product_id=P135011&n=5

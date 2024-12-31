@@ -150,6 +150,9 @@
         /* Estilos para produtos sugeridos */
         .suggested-products {
             margin-top: 30px;
+            background-color: #e3db48;
+            padding: 15px;
+            border-radius: 10px;
         }
 
         .suggested-products h3 {
@@ -199,6 +202,15 @@
             color: #27ae60;
         }
 
+        .home {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+        }
+        .home:hover{
+            text-decoration: underline;
+        }
+
     </style>
 
     <script>
@@ -217,7 +229,7 @@
                     categories.forEach(category => {
                         const listItem = document.createElement('li');
                         const link = document.createElement('a');
-                        link.href = `http://localhost:8080/product.html?id=${category.id}`;
+                        link.href = `http://localhost:8080/product-list.html?id=${category.id}`;
                         link.textContent = category.name;
                         listItem.appendChild(link);
                         categoriesList.appendChild(listItem);
@@ -249,7 +261,7 @@
                         document.querySelector('.product-name').textContent = product.name;
                         document.querySelector('.product-description').textContent = product.description;
                         document.querySelector('.product-price').textContent = `R$ ${product.price}`;
-                        document.querySelector('.product-image').src = product.image;
+                        //document.querySelector('.product-image').src = product.image;
                     })
                     .catch(error => {
                         console.error('Erro:', error);
@@ -265,14 +277,18 @@
 <!-- Topo com o nome e logo do e-commerce -->
 <header>
     <div class="logo">
-        <img src="logo.png" alt="E-Commerce Logo">
-        <h1>My E-Commerce</h1>
+        <img src="logo.svg" alt="E-Commerce Logo" style="width: 350px; height: auto;">
     </div>
 </header>
 
 <div class="container">
     <!-- Menu lateral com categorias -->
     <aside>
+        <br>
+        <br>
+        <a class="home" href="index.html">Home</a>
+        <br>
+        <br>
         <h2>Categorias</h2>
         <ul>
             <!-- As categorias serão carregadas via script -->
@@ -284,19 +300,19 @@
         <h2>Detalhes do Produto</h2>
         <div class="product-details">
             <div class="product-image">
-                <img class="product-image" src="" alt="Imagem do Produto" style="width: 300px; height: auto;">
+                <img class="product-image" src="https://via.placeholder.com/400" alt="Imagem do Produto" style="width: 300px; height: auto;">
             </div>
             <div class="product-info">
                 <h3 class="product-name"></h3>
                 <p class="product-description"></p>
-                <p class="product-price price">R$ 499,90</p>
+                <p class="product-price price"></p>
                 <a href="#" class="add-to-cart">Adicionar ao Carrinho</a>
             </div>
         </div>
 
         <!-- Produtos sugeridos -->
         <div class="suggested-products">
-            <h3>Produtos Sugeridos</h3>
+            <h3>Produtos Similares</h3>
             <div class="scroll-container">
                 <div class="product-card">
                     <img src="https://via.placeholder.com/200" alt="Sugestão 1">

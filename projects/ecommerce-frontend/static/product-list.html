@@ -70,6 +70,15 @@
             margin: 10px 0;
         }
 
+        .home {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+        }
+        .home:hover{
+            text-decoration: underline;
+        }
+
         aside ul li a {
             text-decoration: none;
             color: #3498db;
@@ -109,6 +118,7 @@
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
         }
 
         .product-card:hover {
@@ -175,47 +185,57 @@
             font-weight: bold;
             color: #2c3e50;
         }
-
-        .section {
-            margin-bottom: 30px;
-        }
-
-        .section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #2c3e50;
-            text-align: left;
-            #border-bottom: 2px solid #3498db;
-            padding-bottom: 5px;
-        }
-
-        .product-row {
-            display: flex;
-            gap: 15px;
-            overflow-x: auto; /* Habilita rolagem horizontal para telas menores */
-        }
-
-        .product-card {
-            flex: 0 0 auto; /* Previne o redimensionamento automático em rolagem */
-            width: 200px;
-        }
-
-        .product-card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        .recommended {
-            margin-top: 30px;
-            background-color: #e3db48;
-            padding: 15px;
-            border-radius: 10px;
-        }
     </style>
 
     <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Obter o ID da categoria da query string
+            const params = new URLSearchParams(window.location.search);
+            const categoryId = params.get('id');
+
+            if (categoryId) {
+                // Fazer a requisição para listar os produtos por categoria
+                fetch(`http://localhost:8181/api/categories/${categoryId}/products`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao buscar produtos');
+                        }
+                        return response.json();
+                    })
+                    .then(products => {
+                        const productList = document.getElementById('product-list');
+                        productList.innerHTML = '';
+
+                        // Preencher a lista de produtos
+                        products.forEach(product => {
+                            const productCard = document.createElement('div');
+                            productCard.classList.add('product-card');
+                            productCard.setAttribute('data-id', product.id);
+
+                            productCard.innerHTML = `
+                                <img src="${product.image}" alt="${product.name}">
+                                <h3>${product.name}</h3>
+                                <p class="price">R$ ${product.price.toFixed(2)}</p>
+                            `;
+
+                            // Adicionar evento de clique para redirecionar
+                            productCard.addEventListener('click', function () {
+                                window.location.href = `product.html?id=${product.id}`;
+                            });
+
+                            productList.appendChild(productCard);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        document.getElementById('product-list').innerHTML = '<p>Erro ao carregar produtos.</p>';
+                    });
+            } else {
+                document.getElementById('product-list').innerHTML = '<p>Categoria não especificada.</p>';
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             const categoriesList = document.querySelector('aside ul');
 
@@ -254,6 +274,11 @@
 <div class="container">
     <!-- Menu lateral com categorias -->
     <aside>
+        <br>
+        <br>
+        <a class="home" href="index.html">Home</a>
+        <br>
+        <br>
         <h2>Categorias</h2>
         <ul>
             <!-- As categorias serão carregadas via script -->
@@ -262,53 +287,11 @@
 
     <!-- Conteúdo principal -->
     <main>
-        <!-- Seção: Ofertas do Dia -->
-        <section class="section">
-            <div class="banner">
-                <img src="promocao-dia.svg" alt="Promoção do Dia" style="width: 100%; height: auto;">
-            </div>
-            <br>
-            <div class="product-row">
-                <!-- Exemplo de produtos -->
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Produto 1">
-                    <h3>Produto 1</h3>
-                    <p class="price">R$ 199,90</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Produto 2">
-                    <h3>Produto 2</h3>
-                    <p class="price">R$ 299,90</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Produto 3">
-                    <h3>Produto 3</h3>
-                    <p class="price">R$ 399,90</p>
-                </div>
-            </div>
-        </section>
+        <h2>Lista de Produtos</h2>
+        <div id="product-list">
+            <!-- Os produtos serão carregados aqui -->
+        </div>
 
-        <!-- Seção: Recomendados para Você -->
-        <section class="section recommended">
-            <h2>Recomendados para Você</h2>
-            <div class="product-row">
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Produto 4">
-                    <h3>Produto 4</h3>
-                    <p class="price">R$ 149,90</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Produto 5">
-                    <h3>Produto 5</h3>
-                    <p class="price">R$ 249,90</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Produto 6">
-                    <h3>Produto 6</h3>
-                    <p class="price">R$ 349,90</p>
-                </div>
-            </div>
-        </section>
     </main>
 </div>
 </body>

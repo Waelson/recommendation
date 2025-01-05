@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 100" role="img" aria-labelledby="title">
+    <title>Promoção do Dia</title>
+    <rect width="600" height="100" fill="#E6E6E6" rx="0" />
+    <text x="50%" y="50%" fill="#000" font-family="Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" dominant-baseline="central">
+        Promoção do Dia
+    </text>
+</svg>

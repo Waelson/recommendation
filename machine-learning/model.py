@@ -55,7 +55,7 @@ knn.fit(features)
 
 # Salvar dados e modelo
 print("\nSalvando dados do modelo...")
-data.to_csv("processed_data.csv", index=False)
+data.to_csv("../projects/recommendation-api/model/processed_data.csv", index=False)
 np.save("../projects/recommendation-api/model/features.npy", features)
 joblib.dump(knn, "../projects/recommendation-api/model/knn_model.pkl")
 print("Modelo e dados salvos com sucesso!")

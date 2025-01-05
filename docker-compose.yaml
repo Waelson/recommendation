@@ -1,11 +1,25 @@
 version: "3.9"
 
 services:
+  postgres:
+    image: postgres:15
+    container_name: item_api_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: product_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_postgres_volume:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
   recommendation-api:
     build:
       context: ./projects/recommendation-api
       dockerfile: Dockerfile
-    container_name: recommendation-api
+    container_name: recommendation_api
     ports:
       - "8000:8000"
     volumes:
@@ -13,3 +27,6 @@ services:
     environment:
       - FLASK_ENV=development
     command: python app.py
+
+volumes:
+  db_postgres_volume:

@@ -44,7 +44,7 @@ func (r *ProductRepository) FindByProductIDs(productIDs []string) ([]model.Produ
 	args := make([]interface{}, len(productIDs))
 
 	for i, id := range productIDs {
-		placeholders[i] = "?"
+		placeholders[i] = fmt.Sprintf("$%d", i+1) // Marcadores de posição no formato $1, $2, ...
 		args[i] = id
 	}
 
@@ -71,7 +71,7 @@ func (r *ProductRepository) FindByProductIDs(productIDs []string) ([]model.Produ
 
 // FindByCategoryID retrieves a list of Products by category_id
 func (r *ProductRepository) FindByCategoryID(categoryID string) ([]model.Product, error) {
-	query := fmt.Sprintf(`SELECT product_id, name, description, price, 'A' as image, category FROM items WHERE category = '%s'  LIMIT 20`, categoryID)
+	query := fmt.Sprintf(`SELECT product_id, name, description, price, 'A' as image, category FROM items WHERE category = '%s'  LIMIT 6`, categoryID)
 
 	rows, err := r.db.Query(query)
 	if err != nil {

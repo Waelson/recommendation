@@ -4,6 +4,7 @@ import (
 	"github.com/Waelson/recommendation/ecommerce-api/internal/db"
 	"github.com/Waelson/recommendation/ecommerce-api/internal/handler"
 	"github.com/Waelson/recommendation/ecommerce-api/internal/repository"
+	"github.com/Waelson/recommendation/ecommerce-api/internal/service"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	_ "github.com/lib/pq"
@@ -37,6 +38,8 @@ func main() {
 		DBName:   getEnv("POSTGRES_DB", "product_db"),
 	}
 
+	recommendationApiUrl := getEnv("RECOMMENDATION_API_URL", "http://localhost:8000")
+
 	// Conexão com o banco de dados
 	conn, err := db.Connect(dbConfig)
 	if err != nil {
@@ -44,11 +47,14 @@ func main() {
 	}
 	defer conn.Close()
 
+	recommendationService := service.NewRecommendationService(recommendationApiUrl)
+
 	categoryRepository := repository.NewCategoryRepository(conn)
 	productRepository := repository.NewProductRepository(conn)
 
 	categoryHandler := handler.NewCategoryHandler(categoryRepository)
 	productHandler := handler.NewProductHandler(productRepository)
+	recommendationHandler := handler.NewRecommendationHandler(recommendationService, productRepository)
 
 	r := chi.NewRouter()
 
@@ -65,6 +71,9 @@ func main() {
 
 	// Rota para listar produtos por categoria
 	r.Get("/api/categories/{categoryId}/products", productHandler.FindByCategoryID)
+
+	// Rota para listar produtos recomendados
+	r.Get("/api/products/{productID}/{numItems}/recommend", recommendationHandler.Recommend)
 
 	// Porta do servidor
 	port := ":8181"

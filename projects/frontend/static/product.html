@@ -229,7 +229,8 @@
                     categories.forEach(category => {
                         const listItem = document.createElement('li');
                         const link = document.createElement('a');
-                        link.href = `http://localhost:8080/product-list.html?id=${category.name}`;
+                        const name = encodeURIComponent(category.name)
+                        link.href = `http://localhost:8080/product-list.html?id=${name}`;
                         link.textContent = category.name;
                         listItem.appendChild(link);
                         categoriesList.appendChild(listItem);
@@ -271,6 +272,61 @@
                 document.querySelector('.product-details').innerHTML = '<p>Produto não especificado.</p>';
             }
         });
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Função para obter o valor de uma chave na query string
+            function getQueryParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            // Função para buscar e exibir produtos recomendados
+            async function fetchRecommendedProducts(productId, limit) {
+                const endpoint = `http://localhost:8181/api/products/${productId}/${limit}/recommend`;
+
+                try {
+                    const response = await fetch(endpoint);
+                    if (!response.ok) {
+                        throw new Error(`Erro ao buscar recomendações: ${response.status}`);
+                    }
+                    const recommendedProducts = await response.json();
+
+                    const container = document.querySelector(".suggested-products .scroll-container");
+                    container.innerHTML = ""; // Limpar produtos anteriores, se houver
+
+                    // Adicionar produtos recomendados
+                    recommendedProducts.forEach(product => {
+                        const productCard = document.createElement("div");
+                        productCard.className = "product-card";
+
+                        productCard.innerHTML = `
+                    <img src="https://via.placeholder.com/200" alt="${product.name}">
+                    <h4>${product.name}</h4>
+                    <p class="price">R$ ${product.price.toFixed(2)}</p>
+                `;
+
+                        container.appendChild(productCard);
+                    });
+                } catch (error) {
+                    console.error("Erro ao carregar produtos recomendados:", error);
+                    const container = document.querySelector(".suggested-products .scroll-container");
+                    container.innerHTML = "<p>Erro ao carregar produtos recomendados.</p>";
+                }
+            }
+
+            // Obter o productId da query string
+            const productId = getQueryParam("id");
+            const limit = 5;
+
+            if (productId) {
+                fetchRecommendedProducts(productId, limit);
+            } else {
+                console.error("ID do produto não encontrado na query string.");
+            }
+        });
+
     </script>
 </head>
 <body>
@@ -314,31 +370,7 @@
         <div class="suggested-products">
             <h3>Produtos Similares</h3>
             <div class="scroll-container">
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Sugestão 1">
-                    <h4>Produto 1</h4>
-                    <p class="price">R$ 199,90</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Sugestão 2">
-                    <h4>Produto 2</h4>
-                    <p class="price">R$ 299,90</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Sugestão 3">
-                    <h4>Produto 3</h4>
-                    <p class="price">R$ 399,90</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Sugestão 4">
-                    <h4>Produto 4</h4>
-                    <p class="price">R$ 499,90</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Sugestão 5">
-                    <h4>Produto 5</h4>
-                    <p class="price">R$ 599,90</p>
-                </div>
+                <!-- Os produtos serão carregados aqui dinamicamente -->
             </div>
         </div>
     </main>

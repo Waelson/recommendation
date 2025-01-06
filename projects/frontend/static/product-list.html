@@ -250,7 +250,8 @@
                     categories.forEach(category => {
                         const listItem = document.createElement('li');
                         const link = document.createElement('a');
-                        link.href = `http://localhost:8080/product-list.html?id=${category.name}`;
+                        const name = encodeURIComponent(category.name)
+                        link.href = `http://localhost:8080/product-list.html?id=${name}`;
                         link.textContent = category.name;
                         listItem.appendChild(link);
                         categoriesList.appendChild(listItem);

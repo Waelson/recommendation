@@ -12,3 +12,8 @@ type Product struct {
 type Category struct {
 	Name string `json:"name"`
 }
+
+type RecommendationResponse struct {
+	ProductID       string   `json:"product_id"`
+	Recommendations []string `json:"recommendations"`
+}

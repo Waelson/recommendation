@@ -230,7 +230,8 @@
                     categories.forEach(category => {
                         const listItem = document.createElement('li');
                         const link = document.createElement('a');
-                        link.href = `http://localhost:8080/product-list.html?id=${category.name}`;
+                        const name = encodeURIComponent(category.name)
+                        link.href = `http://localhost:8080/product-list.html?id=${name}`;
                         link.textContent = category.name;
                         listItem.appendChild(link);
                         categoriesList.appendChild(listItem);
@@ -262,53 +263,8 @@
 
     <!-- Conteúdo principal -->
     <main>
-        <!-- Seção: Ofertas do Dia -->
-        <section class="section">
-            <div class="banner">
-                <img src="promocao-dia.svg" alt="Promoção do Dia" style="width: 100%; height: auto;">
-            </div>
-            <br>
-            <div class="product-row">
-                <!-- Exemplo de produtos -->
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Produto 1">
-                    <h3>Produto 1</h3>
-                    <p class="price">R$ 199,90</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Produto 2">
-                    <h3>Produto 2</h3>
-                    <p class="price">R$ 299,90</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Produto 3">
-                    <h3>Produto 3</h3>
-                    <p class="price">R$ 399,90</p>
-                </div>
-            </div>
-        </section>
 
-        <!-- Seção: Recomendados para Você -->
-        <section class="section recommended">
-            <h2>Recomendados para Você</h2>
-            <div class="product-row">
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Produto 4">
-                    <h3>Produto 4</h3>
-                    <p class="price">R$ 149,90</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Produto 5">
-                    <h3>Produto 5</h3>
-                    <p class="price">R$ 249,90</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/200" alt="Produto 6">
-                    <h3>Produto 6</h3>
-                    <p class="price">R$ 349,90</p>
-                </div>
-            </div>
-        </section>
+
     </main>
 </div>
 </body>

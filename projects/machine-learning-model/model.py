@@ -8,7 +8,7 @@ from sklearn.neighbors import NearestNeighbors
 
 # Carregar o dataset
 # Substitua 'product.csv' pelo caminho correto do seu arquivo
-data = pd.read_csv("./dataset/products.csv")
+data = pd.read_csv("dataset/products.csv")
 data["Price"] = data["Price"].str.replace("R\\$", "", regex=True).astype(float)
 data["Original Price"] = data["Original Price"].str.replace("R\\$", "", regex=True).astype(float)
 
@@ -55,9 +55,9 @@ knn.fit(features)
 
 # Salvar dados e modelo
 print("\nSalvando dados do modelo...")
-data.to_csv("../projects/recommendation-api/model/processed_data.csv", index=False)
-np.save("../projects/recommendation-api/model/features.npy", features)
-joblib.dump(knn, "../projects/recommendation-api/model/knn_model.pkl")
+data.to_csv("../recommendation-api/model/processed_data.csv", index=False)
+np.save("../recommendation-api/model/features.npy", features)
+joblib.dump(knn, "../recommendation-api/model/knn_model.pkl")
 print("Modelo e dados salvos com sucesso!")
 
 # Função para recomendar itens

@@ -16,74 +16,13 @@ Com este repositório, espera-se fornecer um exemplo claro e funcional de como a
 | **Item API Cluster**      | API que gerencia os dados de produtos (leitura e escrita) no banco de dados.                |
 | **Recommendation API**    | API que utiliza o modelo de machine learning para fornecer produtos recomendados.            |
 
-## Requisitos para Execução
+### Executando
+A aplicação está configurada para ser executada com Docker Compose. Para iniciá-la, entre no diretório raiz da aplicação e execute o seguinte comando:
 
-### Pré-requisitos
-- [Go](https://golang.org/) 1.19 ou superior
-- [PostgreSQL](https://www.postgresql.org/) instalado e configurado
-- Navegador para testar o frontend
+```bash
+docker-compose up --build
+```
 
-### Configuração do Banco de Dados
-1. Inicialize o banco de dados usando o script `init.sql`.
-   ```bash
-   psql -U <seu_usuario> -d <seu_banco> -f init.sql
-   ```
-2. Insira as categorias usando o script `category.sql`.
-   ```bash
-   psql -U <seu_usuario> -d <seu_banco> -f category.sql
-   ```
-3. Insira os produtos manualmente ou carregue-os via script CSV.
+Após a inicialização dos serviços pelo Docker Compose, acesse a aplicação através da URL http://localhost:8080 em seu navegador. Depois navegue nas categorias e nos itens para visualizar as recomendações sendo realizadas em tempo real pela API de Recomendação.
 
-### Configuração do Backend
-1. Navegue até o diretório do projeto desejado (ex.: `product-api` ou `recommendation-api`).
-2. Execute o servidor backend:
-   ```bash
-   go run main.go
-   ```
-3. O servidor estará disponível em `http://localhost:8181` (ou porta configurada).
-
-### Configuração do Frontend
-1. Navegue até o diretório `frontend`.
-2. Abra o arquivo `index.html` no navegador.
-3. A navegação e as funcionalidades devem estar disponíveis.
-
-## Endpoints Disponíveis
-
-### Requisições Principais
-
-#### Produtos
-- **`GET /api/products/:id`**: Retorna detalhes de um produto pelo ID.
-- **`GET /api/products/:id/:n/recommend`**: Retorna `n` recomendações para o produto especificado.
-
-#### Categorias
-- **`GET /api/categories`**: Retorna a lista de categorias em ordem alfabética.
-
-## Modelo de Machine Learning
-
-### O que é Machine Learning (ML)?
-Machine Learning é um campo da inteligência artificial que utiliza algoritmos para aprender padrões a partir de dados. Com base nesses padrões, os modelos podem fazer previsões ou tomar decisões sem serem explicitamente programados para cada tarefa específica.
-
-### O que é um Sistema de Recomendação?
-Um sistema de recomendação é uma aplicação que sugere itens relevantes para os usuários com base em seus interesses, comportamentos anteriores ou características de outros itens similares. No contexto de e-commerce, isso pode incluir produtos relacionados, populares ou personalizados.
-
-### Vantagens de um Sistema de Recomendação para E-commerce
-- **Aumento nas vendas**: Oferece recomendações personalizadas que incentivam compras adicionais.
-- **Melhor experiência do usuário**: Os clientes encontram produtos relevantes de forma rápida e eficiente.
-- **Retenção de clientes**: Torna a navegação mais agradável, promovendo o retorno dos usuários.
-- **Insights valiosos**: Oferece dados sobre preferências e tendências de comportamento.
-
-### Técnica Utilizada no Treinamento do Modelo
-O modelo de recomendação implementado utiliza a abordagem de **Filtragem Baseada em Conteúdo**. Essa técnica analisa as características dos produtos, como categoria, preço, descrição e outras informações textuais, para encontrar itens semelhantes.
-
-#### Etapas do Processo:
-1. **Representação dos Dados**: Os dados do produto são transformados em vetores numéricos, utilizando técnicas como TF-IDF para textos.
-2. **Cálculo de Similaridade**: É utilizada a similaridade de cosseno para medir a proximidade entre produtos.
-3. **Geração de Recomendações**: Para um produto selecionado, os produtos mais similares são ordenados e retornados como recomendação.
-
-Essa abordagem é eficiente para sistemas onde os dados de interação do usuário são limitados, mas as informações sobre os produtos são ricas e bem estruturadas.
-
-2. Teste a navegação para categorias, detalhes do produto e recomendações.
-
-
-
-
+![Application in Action](documentation/recommendation_in_action.gif)

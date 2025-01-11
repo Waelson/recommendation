@@ -40,6 +40,9 @@ docker-compose up --build
 
 ## Abordagem de Machine Learning Utilizada
 
+> **⚠ AVISO:** O modelo demonstrado neste repositório é apenas para testes e fins didáticos. Ele **não deve ser utilizado em ambiente produtivo**, pois não atende aos requisitos de segurança, escalabilidade e desempenho necessários para aplicações reais.
+
+
 Para o treinamento do modelo de recomendação, utilizamos a abordagem de **Filtragem Baseada em Conteúdo (Content-Based Filtering)**. Essa técnica analisa os atributos dos produtos, como descrições, categorias, preços e outras informações estruturadas, para identificar similaridades e oferecer recomendações.
 
 ### Como Funciona

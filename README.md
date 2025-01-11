@@ -1,4 +1,4 @@
-# Sistema de Recomendação de Produtos (em tempo real)
+# Sistema de Recomendação de Produtos (inferência em tempo real)
 
 ![technology Go](https://img.shields.io/badge/technology-Go-blue.svg)  ![technology Python](https://img.shields.io/badge/technology-Python-red.svg)  ![technology Nginx](https://img.shields.io/badge/technology-Nginx-green.svg)  ![technology Postgres](https://img.shields.io/badge/technology-Postgres-orange.svg)  ![technology SKLearn](https://img.shields.io/badge/technology-SKLearn-blue.svg) ![technology Pandas](https://img.shields.io/badge/technology-Pandas-blue.svg)
 

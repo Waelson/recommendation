@@ -55,4 +55,3 @@ Para o treinamento do modelo de recomendação, utilizamos a abordagem de **Filt
 - **Escalabilidade**: Fácil de escalar para novos produtos, desde que as características estejam disponíveis.
 - **Explicabilidade**: As recomendações podem ser facilmente explicadas com base nas similaridades entre os atributos.
 
-Essa abordagem é especialmente eficaz em cenários onde há dados ricos sobre os produtos, mas informações limitadas sobre o comportamento dos usuários. O modelo é integrado ao sistema para fornecer recomendações rápidas e personalizadas.

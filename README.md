@@ -16,13 +16,24 @@ Com este repositório, espera-se fornecer um exemplo claro e funcional de como a
 | **Item API Cluster**      | API que gerencia os dados de produtos (leitura e escrita) no banco de dados.                |
 | **Recommendation API**    | API que utiliza o modelo de machine learning para fornecer produtos recomendados.            |
 
-### Executando
-A aplicação está configurada para ser executada com Docker Compose. Para iniciá-la, entre no diretório raiz da aplicação e execute o seguinte comando:
+### Executando 
+A aplicação está configurada para ser executada com Docker Compose. Siga os seguintes passos:
 
+1. Clone o repositório
+
+```bash
+git clone https://github.com/Waelson/recommendation.git
+cd recommendation
+```
+
+2. Suba toda a stack
 ```bash
 docker-compose up --build
 ```
 
-Após a inicialização dos serviços pelo Docker Compose, acesse a aplicação através da URL http://localhost:8080 em seu navegador. Depois navegue nas categorias e nos itens para visualizar as recomendações sendo realizadas em tempo real pela API de Recomendação.
+3. Acessando a aplicação
+ - Digite a URL http://localhost:8080 no seu browser
+ - Navegue nas categorias e depois clique em um produto para visualizar as recomendações sendo feitas em tempo real pela aplicação Recommendation API. 
 
+### Como a aplicação se parece
 ![Application in Action](documentation/recommendation_in_action.gif)

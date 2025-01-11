@@ -1,5 +1,8 @@
 # Sistema de Recomendação de Produtos
 
+![technology Go](https://img.shields.io/badge/technology-go-blue.svg)  ![technology Python](https://img.shields.io/badge/technology-python-blue.svg)
+
+
 Este repositório contém a implementação de um sistema de recomendação de produtos utilizando Machine Learning. O projeto foi desenvolvido para demonstrar como integrar sistemas transacionais com modelos de machine learning que realizam inferências em tempo real, oferecendo soluções práticas e eficientes para recomendação de produtos em e-commerce.
 
 O sistema combina uma estrutura modular que separa as responsabilidades de frontend, backend e machine learning, que permite explorar a interação entre diferentes componentes. Ele também exemplifica como conectar APIs ao modelo treinado.

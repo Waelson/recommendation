@@ -1,9 +1,85 @@
 version: "3.9"
 
 services:
+
+  frontend:
+    container_name: frontend
+    ports:
+      - "8080:8080"
+    build:
+      context: ./projects/frontend
+      dockerfile: Dockerfile
+    depends_on:
+      - nginx_product_api
+      - nginx_recommendation_api
+    networks:
+      - recommendation-network
+
+  nginx_product_api:
+    image: nginx:latest
+    container_name: nginx_product_api
+    ports:
+      - "8181:80"
+    volumes:
+      - ./projects/nginx/nginx-product.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - product_api_01
+      - product_api_02
+    networks:
+      - recommendation-network
+
+  product_api_01:
+    container_name: product_api_01
+    build:
+      context: ./projects/product-api
+      dockerfile: Dockerfile
+    depends_on:
+      - nginx_recommendation_api
+      - postgres
+    environment:
+      RECOMMENDATION_API_URL: "http://nginx_recommendation_api:8000"
+      POSTGRES_HOST: "postgres"
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "product_db"
+    networks:
+      - recommendation-network
+
+  product_api_02:
+    container_name: product_api_02
+    build:
+      context: ./projects/product-api
+      dockerfile: Dockerfile
+    depends_on:
+      - nginx_recommendation_api
+      - postgres
+    environment:
+      RECOMMENDATION_API_URL: "http://nginx_recommendation_api:8000"
+      POSTGRES_HOST: "postgres"
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "product_db"
+    networks:
+      - recommendation-network
+
+  nginx_recommendation_api:
+    image: nginx:latest
+    container_name: nginx_recommendation_api
+    ports:
+      - "8000:80"
+    volumes:
+      - ./projects/nginx/nginx-recommendation.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - recommendation_api_01
+      - recommendation_api_02
+    networks:
+      - recommendation-network
+
   postgres:
     image: postgres:15
-    container_name: item_api_postgres
+    container_name: postgres
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -14,19 +90,38 @@ services:
     volumes:
       - db_postgres_volume:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - recommendation-network
 
-  recommendation-api:
+  recommendation_api_01:
     build:
       context: ./projects/recommendation-api
       dockerfile: Dockerfile
-    container_name: recommendation_api
-    ports:
-      - "8000:8000"
+    container_name: recommendation_api_01
     volumes:
       - ./projects/recommendation-api/model:/app/model
     environment:
       - FLASK_ENV=development
     command: python app.py
+    networks:
+      - recommendation-network
+
+  recommendation_api_02:
+    build:
+      context: ./projects/recommendation-api
+      dockerfile: Dockerfile
+    container_name: recommendation_api_02
+    volumes:
+      - ./projects/recommendation-api/model:/app/model
+    environment:
+      - FLASK_ENV=development
+    command: python app.py
+    networks:
+      - recommendation-network
 
 volumes:
   db_postgres_volume:
+
+networks:
+  recommendation-network:
+    driver: bridge

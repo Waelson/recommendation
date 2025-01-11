@@ -36,5 +36,5 @@ def get_recommendations():
 
 # Rodar o servidor
 if __name__ == '__main__':
-    print("\nApp recommendation-api running at: http://localhost:5000")
+    print("\nApp recommendation-api running at: http://localhost:8000")
     app.run(host='0.0.0.0', port=8000)

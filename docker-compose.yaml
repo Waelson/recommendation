@@ -37,7 +37,7 @@ services:
       - nginx_recommendation_api
       - postgres
     environment:
-      RECOMMENDATION_API_URL: "http://nginx_recommendation_api:8000"
+      RECOMMENDATION_API_URL: "http://nginx_recommendation_api"
       POSTGRES_HOST: "postgres"
       POSTGRES_PORT: "5432"
       POSTGRES_USER: "postgres"
@@ -55,7 +55,7 @@ services:
       - nginx_recommendation_api
       - postgres
     environment:
-      RECOMMENDATION_API_URL: "http://nginx_recommendation_api:8000"
+      RECOMMENDATION_API_URL: "http://nginx_recommendation_api"
       POSTGRES_HOST: "postgres"
       POSTGRES_PORT: "5432"
       POSTGRES_USER: "postgres"
@@ -68,7 +68,7 @@ services:
     image: nginx:latest
     container_name: nginx_recommendation_api
     ports:
-      - "8000:80"
+      - "80:80"
     volumes:
       - ./projects/nginx/nginx-recommendation.conf:/etc/nginx/nginx.conf:ro
     depends_on:

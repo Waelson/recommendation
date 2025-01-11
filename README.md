@@ -37,3 +37,19 @@ docker-compose up --build
 
 ### Como a aplicação se parece
 ![Application in Action](documentation/recommendation_in_action.gif)
+
+## Abordagem de Machine Learning Utilizada
+
+Para o treinamento do modelo de recomendação, utilizamos a abordagem de **Filtragem Baseada em Conteúdo (Content-Based Filtering)**. Essa técnica analisa os atributos dos produtos, como descrições, categorias, preços e outras informações estruturadas, para identificar similaridades e oferecer recomendações.
+
+### Como Funciona
+1. **Representação dos Dados**: Os produtos são representados como vetores numéricos em um espaço multidimensional, utilizando técnicas como TF-IDF para processar texto e normalização para atributos numéricos.
+2. **Cálculo de Similaridade**: A similaridade entre os produtos é calculada usando métricas como a Similaridade de Cosseno, permitindo identificar itens semelhantes ao produto selecionado.
+3. **Inferência**: Com base no produto consultado, o modelo retorna os itens mais similares, ordenados por relevância.
+
+### Vantagens da Abordagem
+- **Independência do Comportamento do Usuário**: A recomendação é baseada nos atributos dos produtos, não dependendo de histórico de interações.
+- **Escalabilidade**: Fácil de escalar para novos produtos, desde que as características estejam disponíveis.
+- **Explicabilidade**: As recomendações podem ser facilmente explicadas com base nas similaridades entre os atributos.
+
+Essa abordagem é especialmente eficaz em cenários onde há dados ricos sobre os produtos, mas informações limitadas sobre o comportamento dos usuários. O modelo é integrado ao sistema para fornecer recomendações rápidas e personalizadas.

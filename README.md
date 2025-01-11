@@ -1,8 +1,8 @@
-# Sistema de Recomendação de Produtos (inferência em tempo real)
+# Sistema de Recomendação de Produtos 
 
 ![technology Go](https://img.shields.io/badge/technology-Go-blue.svg)  ![technology Python](https://img.shields.io/badge/technology-Python-red.svg)  ![technology Nginx](https://img.shields.io/badge/technology-Nginx-green.svg)  ![technology Postgres](https://img.shields.io/badge/technology-Postgres-orange.svg)  ![technology SKLearn](https://img.shields.io/badge/technology-SKLearn-blue.svg) ![technology Pandas](https://img.shields.io/badge/technology-Pandas-blue.svg)
 
-Este repositório contém a implementação de um sistema de recomendação de produtos utilizando Machine Learning. O projeto foi desenvolvido para demonstrar como integrar sistemas transacionais com modelos de machine learning que realizam inferências em tempo real, oferecendo soluções práticas e eficientes para recomendação de produtos em e-commerce.
+Este repositório contém a implementação de um sistema de recomendação de produtos utilizando Machine Learning. O projeto foi desenvolvido para demonstrar como integrar sistemas transacionais com modelos de machine learning que realizam inferências em tempo real, oferecendo soluções práticas e eficientes para recomendação, seja para produtos em um e-commerce ou filmes em um sistema de streaming de vídeo.
 
 O sistema combina uma estrutura modular que separa as responsabilidades de frontend, backend e machine learning, que permite explorar a interação entre diferentes componentes. Ele também exemplifica como conectar APIs ao modelo treinado.
 
@@ -11,7 +11,7 @@ Com este repositório, espera-se fornecer um exemplo claro e funcional de como a
 ## Arquitetura
 ![Architecture](documentation/architecture.png)
 
-> **⚠ AVISO SOBRE A ARQUITETURA:** O desenho da solução apresentado neste repositório tem como objetivo exemplificar uma possível abordagem de integração com mecanismos de inferências em tempo real. Para cenários de larga escala, outras técnicas e ferramentas poderiam ser consideradas, incluindo **Kafka** e **Apache Spark**, para realizar sugestões baseadas em dados contextuais e processamentos distribuídos.
+> **⚠ AVISO SOBRE A ARQUITETURA:**  O desenho da solução apresentado neste repositório tem como objetivo exemplificar uma das várias abordagens possíveis para integrar aplicações transacionais com mecanismos de machine learning. Além dessa abordagem, também existem opções como inferências em batch ou micro-batch, que podem ser mais adequadas dependendo do caso de uso e dos requisitos específicos.
 
 
 ### Componentes da Arquitetura

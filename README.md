@@ -1,7 +1,6 @@
-# Sistema de Recomendação de Produtos
+# Sistema de Recomendação de Produtos (em tempo real)
 
-![technology Go](https://img.shields.io/badge/technology-go-blue.svg)  ![technology Python](https://img.shields.io/badge/technology-python-blue.svg)
-
+![technology Go](https://img.shields.io/badge/technology-Go-blue.svg)  ![technology Python](https://img.shields.io/badge/technology-Python-red.svg)  ![technology Nginx](https://img.shields.io/badge/technology-Nginx-green.svg)  ![technology Postgres](https://img.shields.io/badge/technology-Postgres-orange.svg)  ![technology SKLearn](https://img.shields.io/badge/technology-SKLearn-blue.svg) ![technology Pandas](https://img.shields.io/badge/technology-Pandas-blue.svg)
 
 Este repositório contém a implementação de um sistema de recomendação de produtos utilizando Machine Learning. O projeto foi desenvolvido para demonstrar como integrar sistemas transacionais com modelos de machine learning que realizam inferências em tempo real, oferecendo soluções práticas e eficientes para recomendação de produtos em e-commerce.
 
